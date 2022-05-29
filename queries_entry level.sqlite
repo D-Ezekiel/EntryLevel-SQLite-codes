@@ -1,0 +1,77 @@
+
+select distinct *
+from donation_data
+left join donor_data2
+on donation_data.id = donor_data2.id;
+
+
+/* Donation information by donation frequency*/
+with donation_info as(
+select distinct *
+from donation_data
+left join donor_data2
+on donation_data.id = donor_data2.id)
+
+
+select donation_frequency, count(id) as no_of_donors, sum(donation) as total_donations
+from donation_info
+group by donation_frequency
+order by no_of_donors
+;
+
+
+/* Top donations*/
+with donation_info as(
+select distinct *
+from donation_data
+left join donor_data2
+on donation_data.id = donor_data2.id)
+
+
+select first_name, last_name, sum(donation) as total_donations
+from donation_info
+group by first_name
+order by total_donations desc;
+
+
+/* Donation info by State*/
+select distinct state, sum(donation) as total_donation
+from donation_data
+group by state
+order by total_donation desc ;
+
+
+/* Donation info by job-field*/
+select job_field, count(id) as no_of_donors, sum(donation) as total_donation
+from donation_data
+group by job_field
+order by no_of_donors desc, total_donation ;
+
+
+/* Aggregate information on the Donations*/
+select sum(donation) as total_donations, count(id) as total_donors, avg(donation) as average_donation
+from donation_data;
+
+select first_name, last_name, donation
+from donation_data
+order by donation desc
+limit 20;
+
+SELECT DISTINCT UNIVERSITY
+FROM DONOR_DATA2
+WHERE UNIVERSITY IS NOT NULL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
